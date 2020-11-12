@@ -22,7 +22,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 8001);
 
-
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads')));
@@ -38,7 +37,6 @@ app.use(session({
     secure: false,
   },
 }));
-
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -47,6 +45,7 @@ app.use('/', pageRouter);
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;

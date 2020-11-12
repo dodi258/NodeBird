@@ -8,11 +8,13 @@ const passport = require('passport');
 require('dotenv').config(); 
 
 const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const { sequelize } = require('./models'); 
 const passportConfig = require('./passport');
 
 const app = express(); 
-sequelize.sync(); 
+sequelize.sync(); //db 모델과 서버를 연결합니다. 
 passportConfig(passport); 
 
 
@@ -44,7 +46,8 @@ app.use(passport.session());
 
 // router 주소
 app.use('/', pageRouter);
-
+app.use('/auth', authRouter); 
+app.use('/post', postRouter); 
 // 직접 미들웨어를 정의할 때  
 app.use((req, res, next) => {
     const err = new Error('Not Found');

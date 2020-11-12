@@ -53,7 +53,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             return res.redirect('/');
         });
     })(req, res, next);
-})
+});
 // logout
 // req.logout 메서드는 req.user 객체를 제거하고, req.session.destory는 req.session 객체의 내용을 제거한다. 
 
@@ -62,4 +62,13 @@ router.get('/logout', isLoggedIn, (req, res) => {
     req.session.destroy();
     res.redirect('/');
 });
+
+router.get('/kakao', passport.authenticate('kakao'));
+
+router.get('/kakao/callback', passport.authenticate('kakao', {
+    failureRedirect: '/',
+}), (req, res) => {
+    res.redirect('/');
+})
+
 module.exports = router; 

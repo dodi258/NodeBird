@@ -38,6 +38,7 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Post = require('./post')(sequelize, Sequelize); 
 db.Hashtag = require('./hashtag')(sequelize, Sequelize);
+
 db.User.hasMany(db.Post); //1 : n
 db.Post.belongsTo(db.User); // 종속 관계 - 외래키?
 // m: n관계 
@@ -49,6 +50,7 @@ db.User.belongsToMany(db.User, {
   as: 'Followers',
   through: 'Follow',
 });
+
 db.User.belongsToMany(db.User, {
   foreignKey: 'followerId',
   as: 'Followings',

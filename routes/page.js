@@ -22,7 +22,6 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 // METHOD: get ***** URL: /
 // 
 router.get('/', (req, res, next) => {
-
     res.render('main', {
         title: 'NodeBird',
         twits: [],
@@ -39,7 +38,7 @@ router.get('/', (req, res, next) => {
         },
         order: [['createdAt', 'DESC']],
     })
-        .then((posts) => {
+    .then((posts) => {
             res.render('main', {
                 title: 'NodeBird',
                 twits: posts,

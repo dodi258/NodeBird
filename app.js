@@ -10,6 +10,8 @@ require('dotenv').config();
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
+
 const { sequelize } = require('./models'); 
 const passportConfig = require('./passport');
 
@@ -25,6 +27,7 @@ app.set('port', process.env.PORT || 8001);
 
 app.use(morgan('dev')); //log 이쁘게 해주는 것. 
 app.use(express.static(path.join(__dirname, 'public'))); // 정적 파일 위치 설정
+app.use('/img', express.static(path.join(__dirname, 'uploads'))); 
 app.use(express.json()); // 왜? 
 app.use(express.urlencoded({ extended: false })); // 왜
 app.use(cookieParser(process.env.COOKIE_SECRET)); // 동봉된 쿠키를 해석해줍니다. 
@@ -48,6 +51,8 @@ app.use(passport.session());
 app.use('/', pageRouter);
 app.use('/auth', authRouter); 
 app.use('/post', postRouter); 
+app.use('/user', userRouter);
+
 // 직접 미들웨어를 정의할 때  
 app.use((req, res, next) => {
     const err = new Error('Not Found');

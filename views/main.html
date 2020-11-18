@@ -50,6 +50,7 @@
         const formData = new FormData();
         console.log(this, this.files);
         formData.append('img', this.files[0]);
+        // 여기서 axios 요청을 보내는 것임. 
         axios.post('/post/img', formData)
           .then((res) => {
             document.getElementById('img-url').value = res.data.url;
@@ -68,6 +69,7 @@
           const userId = tag.parentNode.querySelector('.twit-user-id').value;
           if (userId !== myId.value) {
             if (confirm('팔로잉하시겠습니까?')) {
+              //팔로우 요청 
               axios.post(`/user/${userId}/follow`)
                 .then(() => {
                   location.reload();
